@@ -36,5 +36,20 @@ namespace NoteDemo
         {
 
         }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRefresh_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Insert_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
