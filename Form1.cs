@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using MongoDB.Bson;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,39 +20,42 @@ namespace NoteDemo
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+        
 
+        
+        //just for test
+        private void SortClick(object sender, EventArgs e)
+        {
+            string x = (sender as RadioButton).Text;
+            showText.Text = x;
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label4_Click(object sender, EventArgs e)
+        //just for test
+        private void buttonInsert_Click(object sender, EventArgs e)
         {
             
-        }
 
-        private void label12_Click(object sender, EventArgs e)
-        {
+            showText.Text = "";
 
-        }
+            //Console.WriteLine("The list of databases on this server is: ");
+            DBController dBController = new DBController();
+            foreach (var doc in dBController.GetNoteById(202205111356423))
+            {
+                //doc[0]<=>doc["_id"]
+                showText.Text += doc["title"] + Environment.NewLine;
+                /*foreach (var docs in doc)
+                {
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonRefresh_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Insert_Enter(object sender, EventArgs e)
-        {
-
+                    showText.Text += docs.Value + Environment.NewLine;
+                    //Console.WriteLine(db);
+                }*/
+                //dBController.db.
+                showText.Text += Environment.NewLine;
+                //Console.WriteLine(db);
+            }
+            //showText.Text = insertText.Text;
+            showText.Text = showText.Text.Replace("\n", Environment.NewLine);
         }
     }
 }
