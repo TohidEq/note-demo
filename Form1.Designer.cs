@@ -237,6 +237,7 @@
             this.buttonRefresh.TabIndex = 17;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = false;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // showWithoutType
             // 
@@ -249,6 +250,7 @@
             this.showWithoutType.TabIndex = 22;
             this.showWithoutType.Text = "without type";
             this.showWithoutType.UseVisualStyleBackColor = true;
+            this.showWithoutType.Click += new System.EventHandler(this.ClickOnShowTypes);
             // 
             // radioButton3
             // 
@@ -318,6 +320,8 @@
             // showPersonal
             // 
             this.showPersonal.AutoSize = true;
+            this.showPersonal.Checked = true;
+            this.showPersonal.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showPersonal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.showPersonal.Location = new System.Drawing.Point(3, 68);
             this.showPersonal.Margin = new System.Windows.Forms.Padding(2);
@@ -326,6 +330,7 @@
             this.showPersonal.TabIndex = 11;
             this.showPersonal.Text = "personal";
             this.showPersonal.UseVisualStyleBackColor = true;
+            this.showPersonal.Click += new System.EventHandler(this.ClickOnShowTypes);
             // 
             // showWork
             // 
@@ -338,6 +343,7 @@
             this.showWork.TabIndex = 12;
             this.showWork.Text = "work";
             this.showWork.UseVisualStyleBackColor = true;
+            this.showWork.Click += new System.EventHandler(this.ClickOnShowTypes);
             // 
             // label7
             // 
@@ -361,6 +367,7 @@
             this.showOther.TabIndex = 13;
             this.showOther.Text = "other";
             this.showOther.UseVisualStyleBackColor = true;
+            this.showOther.Click += new System.EventHandler(this.ClickOnShowTypes);
             // 
             // groupBox3
             // 
