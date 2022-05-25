@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.insertPersonal = new System.Windows.Forms.CheckBox();
             this.insertWork = new System.Windows.Forms.CheckBox();
             this.insertOther = new System.Windows.Forms.CheckBox();
@@ -315,7 +314,8 @@
             this.showText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.showText.Size = new System.Drawing.Size(336, 315);
             this.showText.TabIndex = 11;
-            this.showText.Text = resources.GetString("showText.Text");
+            this.showText.Text = ">>_id: 111400101\r\n>>title: test title\r\n>>text: test text\r\n>>types:test, \r\n-  -  -" +
+    "  -  -";
             // 
             // showPersonal
             // 

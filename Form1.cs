@@ -19,20 +19,17 @@ namespace NoteDemo
         //private DBController dBController = new DBController();
         public string sortNotesBy = "Title";
         static List<string> showTypes = new List<string>() { "personal"};
+        public List<string> insertTypes = new List<string>();
+
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        
-
-        
-        
-
 
         //just for test
-        private void buttonInsert_Click(object sender, EventArgs e)
+        private void buttonInsert_Clic()
         {
             DBController dBController = new DBController();
             //DBController dBController = new DBController();
@@ -40,7 +37,7 @@ namespace NoteDemo
 
             //Console.WriteLine("The list of databases on this server is: ");
             //dBController = new DBController();
-            foreach (var doc in dBController.GetNoteIdByNotThisTypes("work","other"))
+            foreach (var doc in dBController.GetNoteIdByNotThisTypes("work", "other"))
             {
                 //doc[0]<=>doc["_id"]
                 //showText.Text += doc["note_id"] + Environment.NewLine;
@@ -65,17 +62,54 @@ namespace NoteDemo
 
             showText.Text = "xxxx";
 
-           var x = dBController.GetTypesByNoteId(111400100.ToString());
+            var x = dBController.GetTypesByNoteId(111400100.ToString());
 
-            foreach(var s in x)
+            foreach (var s in x)
             {
-                showText.Text += s+Environment.NewLine;
+                showText.Text += s + Environment.NewLine;
                 foreach (var s2 in s)
                 {
-                    showText.Text += s2 + Environment.NewLine+"ss";
+                    showText.Text += s2 + Environment.NewLine + "ss";
                 }
             }
-            
+
+
+
+
+        }
+
+
+
+
+        ///////////////////
+        // insert method //
+        private void buttonInsert_Click(object sender, EventArgs e)
+        {
+            DBController dBController = new DBController();
+            List<string> typesList = InsertTypes();  //get all selected types
+
+
+
+            if(insertTitle.Text.Length>0 & insertText.Text.Length > 0)
+            {
+                string note_id = dBController.InsertToNote(
+                                    insertTitle.Text,
+                                    insertText.Text);
+                foreach(var item in typesList)
+                {
+                    dBController.InsertToTypeNote(note_id, item);
+                }
+
+
+                // clear insert section
+                ClearInsert();
+                MessageBox.Show("successful. note id: "+ note_id);
+            }
+            else
+            {
+                MessageBox.Show("!!! write something pls !!!");
+            }
+
 
 
 
@@ -157,6 +191,8 @@ namespace NoteDemo
 
             }
 
+            showText.Text = showText.Text.Replace("\\n", "\r\n");
+
         }
 
 
@@ -224,7 +260,7 @@ namespace NoteDemo
         }
 
         
-
+        // for show section //
         static bool CheckTypes(string noteId)
         {
             DBController dBController = new DBController();
@@ -248,17 +284,51 @@ namespace NoteDemo
         }
 
 
+        // for insert section //
+        public List<string> InsertTypes()
+        {
+            List<string> result = new List<string>();
+
+            if (insertPersonal.Checked)
+            {
+                result.Add("personal");
+            }
+            if (insertWork.Checked)
+            {
+                result.Add("work");
+            }
+            if (insertOther.Checked)
+            {
+                result.Add("other");
+            }
+            if(!insertOther.Checked & !insertWork.Checked & !insertPersonal.Checked)
+            {
+                result.Add("without type");
+            }
+            return result;
+        }
+
 
 
         ////////////////////
         // custom methods //
 
 
-        //set sort method //
+        // set sort method //
         private void SortClick(object sender, EventArgs e)
         {
             string x = (sender as RadioButton).Text;
             sortNotesBy = x;
+        }
+
+        // clear insert section method //
+        private void ClearInsert()
+        {
+            insertTitle.Text = "";
+            insertText.Text = "";
+            insertPersonal.Checked = false;
+            insertWork.Checked = false;
+            insertOther.Checked = false;
         }
 
 

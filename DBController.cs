@@ -43,14 +43,59 @@ namespace NoteDemo
         //= start INSERT and UPDATE METHODS =//
         //==...............................==//
 
-        public Int64 InsertToNote(string title, string text, string type)
+        /// <summary>
+        /// insert one doc to DB.Note
+        /// </summary>
+        /// <param name="title">title</param>
+        /// <param name="text">text</param>
+        /// <returns>note_id (string), if not work=>return "0"</returns>
+        public string InsertToNote(string title, string text)
+        {
+            var notes = db.GetCollection<BsonDocument>("Note");
+            string note_id = MakeId().ToString();
+
+            BsonDocument doc = new BsonDocument
+            {
+                {"_id",note_id },
+                {"title", title},
+                {"text", text}
+            };
+
+            try
+            {
+                notes.InsertOne(doc);
+
+                return note_id;
+            }
+            catch (Exception)
+            {
+                return "0";
+            }
+            
+
+
+        }
+
+        /// <summary>
+        /// insert one doc to DB.TypeNote
+        /// </summary>
+        /// <param name="note_id">note_id</param>
+        /// <param name="type">type</param>
+        /// <returns>note_id (string), if not work=>return "0"</returns>
+        public void InsertToTypeNote(string note_id, string type)
         {
 
             var sort = Builders<BsonDocument>.Sort.Ascending("name");
 
-            var types = db.GetCollection<BsonDocument>("Type");
-            //return types.Find(new BsonDocument()).Sort(sort).ToList(); ;
-            return MakeId();
+            var types = db.GetCollection<BsonDocument>("TypeNote");
+
+            BsonDocument doc = new BsonDocument
+            {
+                {"note_id",note_id },
+                {"type", type}
+            };
+            types.InsertOne(doc);
+
         }
         //===.............................===//
         //== end INSERT and UPDATE METHODS ==//
@@ -237,7 +282,7 @@ namespace NoteDemo
 
 
         //======== custom methods =========//
-        private int MakeId()
+        public int MakeId()
         {
             Random random = new Random();
             return Convert.ToInt32(
