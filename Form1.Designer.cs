@@ -52,11 +52,9 @@
             this.showOther = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkA2 = new System.Windows.Forms.TextBox();
-            this.checkQ2 = new System.Windows.Forms.Label();
+            this.checkA = new System.Windows.Forms.TextBox();
+            this.checkQ = new System.Windows.Forms.Label();
             this.buttonSendToUpdate = new System.Windows.Forms.Button();
-            this.checkA1 = new System.Windows.Forms.TextBox();
-            this.checkQ1 = new System.Windows.Forms.Label();
             this.idText2 = new System.Windows.Forms.TextBox();
             this.idText1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -372,11 +370,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.checkA2);
-            this.groupBox3.Controls.Add(this.checkQ2);
+            this.groupBox3.Controls.Add(this.checkA);
+            this.groupBox3.Controls.Add(this.checkQ);
             this.groupBox3.Controls.Add(this.buttonSendToUpdate);
-            this.groupBox3.Controls.Add(this.checkA1);
-            this.groupBox3.Controls.Add(this.checkQ1);
             this.groupBox3.Controls.Add(this.idText2);
             this.groupBox3.Controls.Add(this.idText1);
             this.groupBox3.Controls.Add(this.label8);
@@ -394,32 +390,34 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 254);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(3, 327);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(124, 37);
+            this.label12.Size = new System.Drawing.Size(108, 31);
             this.label12.TabIndex = 17;
             this.label12.Text = "Delete?";
             // 
-            // checkA2
+            // checkA
             // 
-            this.checkA2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkA2.Location = new System.Drawing.Point(3, 387);
-            this.checkA2.Margin = new System.Windows.Forms.Padding(2);
-            this.checkA2.Name = "checkA2";
-            this.checkA2.Size = new System.Drawing.Size(210, 32);
-            this.checkA2.TabIndex = 15;
+            this.checkA.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkA.Location = new System.Drawing.Point(3, 387);
+            this.checkA.Margin = new System.Windows.Forms.Padding(2);
+            this.checkA.Name = "checkA";
+            this.checkA.Size = new System.Drawing.Size(210, 32);
+            this.checkA.TabIndex = 15;
+            this.checkA.TextChanged += new System.EventHandler(this.writeAnswer);
             // 
-            // checkQ2
+            // checkQ
             // 
-            this.checkQ2.AutoSize = true;
-            this.checkQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkQ2.Location = new System.Drawing.Point(4, 358);
-            this.checkQ2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.checkQ2.Name = "checkQ2";
-            this.checkQ2.Size = new System.Drawing.Size(78, 26);
-            this.checkQ2.TabIndex = 16;
-            this.checkQ2.Text = "X+Z=?";
+            this.checkQ.AutoSize = true;
+            this.checkQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkQ.Location = new System.Drawing.Point(4, 358);
+            this.checkQ.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.checkQ.Name = "checkQ";
+            this.checkQ.Size = new System.Drawing.Size(78, 26);
+            this.checkQ.TabIndex = 16;
+            this.checkQ.Text = "X+Z=?";
             // 
             // buttonSendToUpdate
             // 
@@ -435,26 +433,6 @@
             this.buttonSendToUpdate.Text = "Send to Update box";
             this.buttonSendToUpdate.UseVisualStyleBackColor = false;
             // 
-            // checkA1
-            // 
-            this.checkA1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkA1.Location = new System.Drawing.Point(3, 319);
-            this.checkA1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkA1.Name = "checkA1";
-            this.checkA1.Size = new System.Drawing.Size(210, 32);
-            this.checkA1.TabIndex = 12;
-            // 
-            // checkQ1
-            // 
-            this.checkQ1.AutoSize = true;
-            this.checkQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkQ1.Location = new System.Drawing.Point(4, 291);
-            this.checkQ1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.checkQ1.Name = "checkQ1";
-            this.checkQ1.Size = new System.Drawing.Size(78, 26);
-            this.checkQ1.TabIndex = 13;
-            this.checkQ1.Text = "X+Z=?";
-            // 
             // idText2
             // 
             this.idText2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -463,6 +441,7 @@
             this.idText2.Name = "idText2";
             this.idText2.Size = new System.Drawing.Size(210, 32);
             this.idText2.TabIndex = 11;
+            this.idText2.TextChanged += new System.EventHandler(this.writeNoteId);
             // 
             // idText1
             // 
@@ -472,6 +451,7 @@
             this.idText1.Name = "idText1";
             this.idText1.Size = new System.Drawing.Size(210, 32);
             this.idText1.TabIndex = 5;
+            this.idText1.TextChanged += new System.EventHandler(this.writeNoteId);
             // 
             // label8
             // 
@@ -497,6 +477,7 @@
             this.buttonDelete.TabIndex = 10;
             this.buttonDelete.Text = "DELETE";
             this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // groupBox1
             // 
@@ -674,11 +655,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox showWithoutType;
-        private System.Windows.Forms.TextBox checkA1;
-        private System.Windows.Forms.Label checkQ1;
         private System.Windows.Forms.TextBox idText2;
-        private System.Windows.Forms.TextBox checkA2;
-        private System.Windows.Forms.Label checkQ2;
+        private System.Windows.Forms.TextBox checkA;
+        private System.Windows.Forms.Label checkQ;
         private System.Windows.Forms.Button buttonSendToUpdate;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox updatePersonal;

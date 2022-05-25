@@ -225,7 +225,7 @@ namespace NoteDemo
         /// </summary>
         /// <param name="noteId">note id int32</param>
         /// <returns>boolean True or False</returns>
-        public bool DeleteByNoteId(int noteId)
+        public bool DeleteByNoteId(string noteId)
         {
             try
             {

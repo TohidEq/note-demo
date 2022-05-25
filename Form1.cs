@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace NoteDemo
 {
@@ -17,6 +18,7 @@ namespace NoteDemo
     {
         //static 
         //private DBController dBController = new DBController();
+        private int q1 =0, q2 =0;
         public string sortNotesBy = "Title";
         static List<string> showTypes = new List<string>() { "personal"};
         public List<string> insertTypes = new List<string>();
@@ -87,7 +89,6 @@ namespace NoteDemo
         {
             DBController dBController = new DBController();
             List<string> typesList = InsertTypes();  //get all selected types
-
 
 
             if(insertTitle.Text.Length>0 & insertText.Text.Length > 0)
@@ -193,6 +194,8 @@ namespace NoteDemo
 
             showText.Text = showText.Text.Replace("\\n", "\r\n");
 
+            MakeQuestion(); // for delete section
+
         }
 
 
@@ -226,12 +229,74 @@ namespace NoteDemo
 
 
 
+        /////////////////////////////////////
+        // change answer text box value... //
+        private void writeAnswer(object sender, EventArgs e)
+        {
+            if (Regex.IsMatch(checkA.Text, @"^[0-9]{1,2}$"))
+                if (Convert.ToInt32(checkA.Text) == q1 + q2)
+                {
+                    if(buttonSendToUpdate.Enabled)
+                        buttonDelete.Enabled = true;
+                }
+                else
+                {
+
+                    buttonDelete.Enabled = false;
+                }
+            else
+            {
+
+                buttonDelete.Enabled = false;
+            }
+        }
+        
+        /////////////////////////////////////
+        // change note_id text box value... //
+        private void writeNoteId(object sender, EventArgs e)
+        {
+            var dBController = new DBController();
+
+            if (Regex.IsMatch(idText1.Text, @"^[0-9]{9}$") & Regex.IsMatch(idText2.Text, @"^[0-9]{9}$"))
+                if (idText1.Text == idText2.Text )
+                {
+                    var validate = dBController.GetNoteById(idText1.Text);
+                    
+                    if (validate.Count() == 1)
+                        buttonSendToUpdate.Enabled = true;
+                    else
+                        buttonSendToUpdate.Enabled = false;
+                }
+                else
+                {
+
+                    buttonSendToUpdate.Enabled = false;
+                }
+            else
+            {
+
+                buttonSendToUpdate.Enabled = false;
+            }
+        }
 
 
-
-
-
-
+        ///////////////////////////////
+        // delete note and note type //
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            var dBController =new DBController();
+            //idText1.Text;
+            try
+            {
+                if (dBController.DeleteByNoteId(idText1.Text))
+                {
+                    MessageBox.Show("deleted. note id: " + idText1.Text);
+                }
+            }catch (Exception)
+            {
+                MessageBox.Show("error!!!");
+            }
+        }
 
         //////////////////////
         // custom functions //
@@ -331,7 +396,18 @@ namespace NoteDemo
             insertOther.Checked = false;
         }
 
+        
 
+        private void MakeQuestion()
+        {
+            Random random  = new Random();
+            q1 = Convert.ToInt32(random.Next(0, 9));
+            q2 = Convert.ToInt32(random.Next(0, 9));
+            checkQ.Text = q1.ToString() + " + "+ q2.ToString() + " = ?";
+            buttonDelete.Enabled = false;
+            checkA.Text = "";
+        }
 
+        
     }
 }
