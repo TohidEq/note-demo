@@ -5,7 +5,7 @@
     A C# windows form project with MongoDB
     <br/>
     <br/>
-    <a href="https://github.com/TohidEq/note-demo"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/TohidEq/note-demo"><strong>Explore the docs Â»</strong></a>
     <br/>
     <br/>
     <a href="https://github.com/TohidEq/note-demo">View Demo</a>
@@ -22,7 +22,10 @@
 
 ![Screen Shot](screenshot.png)
 
-* test
+* Add note
+* Delete note
+* Show notes
+* Update note
 
 
 
@@ -30,7 +33,7 @@
 
 This is an example of how to list things you need to use the software and how to install them.
 
-* cassandra
+* mongodb 5
 
 
 ## Contributing
