@@ -97,6 +97,35 @@ namespace NoteDemo
             types.InsertOne(doc);
 
         }
+
+
+
+
+        public string UpdateNote(string note_id, string title, string text)
+        {
+            var notes = db.GetCollection<BsonDocument>("Note");
+
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", note_id);
+
+            try
+            {
+                var update = Builders<BsonDocument>.Update.Set("title", title);
+                notes.UpdateOne(filter, update);
+                update = Builders<BsonDocument>.Update.Set("text", text);
+                notes.UpdateOne(filter, update);
+
+                return note_id;
+            }
+            catch (Exception)
+            {
+                return "0";
+            }
+
+
+
+        }
+
         //===.............................===//
         //== end INSERT and UPDATE METHODS ==//
         //===================================//
@@ -239,6 +268,22 @@ namespace NoteDemo
 
                 return true;
             }catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteJustTypesByNoteId(string noteId)
+        {
+            try
+            {
+                var filter = Builders<BsonDocument>.Filter.Eq("note_id", noteId);
+                var typeNote = db.GetCollection<BsonDocument>("TypeNote");
+                typeNote.DeleteMany(filter);
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }

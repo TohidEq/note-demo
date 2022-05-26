@@ -432,6 +432,7 @@
             this.buttonSendToUpdate.TabIndex = 14;
             this.buttonSendToUpdate.Text = "Send to Update box";
             this.buttonSendToUpdate.UseVisualStyleBackColor = false;
+            this.buttonSendToUpdate.Click += new System.EventHandler(this.buttonSendToUpdate_Click);
             // 
             // idText2
             // 
@@ -592,6 +593,7 @@
             // buttonUpdate
             // 
             this.buttonUpdate.BackColor = System.Drawing.Color.Green;
+            this.buttonUpdate.Enabled = false;
             this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonUpdate.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonUpdate.Location = new System.Drawing.Point(3, 422);
@@ -601,6 +603,7 @@
             this.buttonUpdate.TabIndex = 10;
             this.buttonUpdate.Text = "UPDATE";
             this.buttonUpdate.UseVisualStyleBackColor = false;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // Form1
             // 

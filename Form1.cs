@@ -30,59 +30,6 @@ namespace NoteDemo
         }
 
 
-        //just for test
-        private void buttonInsert_Clic()
-        {
-            DBController dBController = new DBController();
-            //DBController dBController = new DBController();
-            showText.Text = "";
-
-            //Console.WriteLine("The list of databases on this server is: ");
-            //dBController = new DBController();
-            foreach (var doc in dBController.GetNoteIdByNotThisTypes("work", "other"))
-            {
-                //doc[0]<=>doc["_id"]
-                //showText.Text += doc["note_id"] + Environment.NewLine;
-                foreach (var docs in doc)
-                {
-                    showText.Text += docs + Environment.NewLine;
-                    //showText.Text += docs.Value + Environment.NewLine;
-                    //Console.WriteLine(db);
-                }
-                //dBController.db.
-                showText.Text += Environment.NewLine;
-                //Console.WriteLine(db);
-            }
-            //showText.Text = insertText.Text;
-            showText.Text = showText.Text.Replace("\n", Environment.NewLine);
-
-            //showText.Text = dBController.InsertToNote("s", "s", "s").ToString();
-
-
-
-            //test for refresh:
-
-            showText.Text = "xxxx";
-
-            var x = dBController.GetTypesByNoteId(111400100.ToString());
-
-            foreach (var s in x)
-            {
-                showText.Text += s + Environment.NewLine;
-                foreach (var s2 in s)
-                {
-                    showText.Text += s2 + Environment.NewLine + "ss";
-                }
-            }
-
-
-
-
-        }
-
-
-
-
         ///////////////////
         // insert method //
         private void buttonInsert_Click(object sender, EventArgs e)
@@ -117,6 +64,77 @@ namespace NoteDemo
         }
 
 
+        ///////////////////
+        // update method //
+        private void buttonSendToUpdate_Click(object sender, EventArgs e)
+        {
+            var dBController = new DBController();
+            var note = dBController.GetNoteById(idText1.Text);
+
+            foreach (var i in note)
+            {
+
+                updateTitle.Text = i["title"].ToString();
+                updateText.Text = i["text"].ToString();
+            }
+            updateText.Text = updateText.Text.Replace("\\n", "\r\n");
+
+            foreach(var type in dBController.GetTypesByNoteId(idText1.Text))
+            {
+                switch (type["type"].ToString())
+                {
+                    case "personal":
+                        updatePersonal.Checked = true;
+                        break;
+                    case "work":
+                        updateWork.Checked = true;
+                        break;
+                    case "other":
+                        updateOther.Checked = true;
+                        break;
+                    case "whitout type":
+                        updateOther.Checked = false;
+                        updateWork.Checked = false;
+                        updatePersonal.Checked = false;
+                        break;
+                }
+            }
+            buttonUpdate.Enabled = true;
+        }
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            DBController dBController = new DBController();
+            List<string> typesList = UpdateTypes();  //get all selected types
+
+
+            if (updateTitle.Text.Length > 0 & updateText.Text.Length > 0)
+            {
+                string note_id = dBController.UpdateNote
+                                    (idText1.Text.ToString(),
+                                    updateTitle.Text.ToString(),
+                                    updateText.Text.ToString());
+
+                dBController.DeleteJustTypesByNoteId(note_id);
+                
+                foreach (var item in typesList)
+                {
+                    dBController.InsertToTypeNote(note_id, item);
+                }
+
+
+                
+                MessageBox.Show("successful. note id: " + note_id);
+            }
+            else
+            {
+                MessageBox.Show("!!! write something pls !!!");
+            }
+        }
+        // end update //
+        ////////////////
+
+
+
 
         ////////////////
         // show notes //
@@ -126,15 +144,7 @@ namespace NoteDemo
             //clear show text box
             showText.Text       = "";
 
-            /*bool personalType   = showPersonal.     Checked,
-                 workType       = showWork.         Checked,
-                 otherType      = showOther.        Checked,
-                 withoutType    = showWithoutType.  Checked;*/
-
-            //dBController = new DBController();
-
-            /*// sort by
-            List<BsonDocument> allNotesId = dBController.GetNotesIdSortByTitle();*/
+           
 
             List<string> allNotesId = new List<string>();
             
@@ -159,7 +169,6 @@ namespace NoteDemo
 
 
 
-            //test:
             foreach (var item in allNotesId)
             {   
 
@@ -241,12 +250,13 @@ namespace NoteDemo
                 }
                 else
                 {
-
+                    buttonUpdate.Enabled = false;
                     buttonDelete.Enabled = false;
                 }
             else
             {
 
+                buttonUpdate.Enabled = false;
                 buttonDelete.Enabled = false;
             }
         }
@@ -261,20 +271,22 @@ namespace NoteDemo
                 if (idText1.Text == idText2.Text )
                 {
                     var validate = dBController.GetNoteById(idText1.Text);
-                    
+
                     if (validate.Count() == 1)
                         buttonSendToUpdate.Enabled = true;
-                    else
+                    else {
                         buttonSendToUpdate.Enabled = false;
+                        ClearUpdate();
+                        }
                 }
                 else
                 {
-
+                    ClearUpdate();
                     buttonSendToUpdate.Enabled = false;
                 }
             else
             {
-
+                ClearUpdate();
                 buttonSendToUpdate.Enabled = false;
             }
         }
@@ -366,13 +378,35 @@ namespace NoteDemo
             {
                 result.Add("other");
             }
-            if(!insertOther.Checked & !insertWork.Checked & !insertPersonal.Checked)
+            if (!insertOther.Checked & !insertWork.Checked & !insertPersonal.Checked)
             {
                 result.Add("without type");
             }
             return result;
         }
+        // for update section //
+        public List<string> UpdateTypes()
+        {
+            List<string> result = new List<string>();
 
+            if (updatePersonal.Checked)
+            {
+                result.Add("personal");
+            }
+            if (updateWork.Checked)
+            {
+                result.Add("work");
+            }
+            if (updateOther.Checked)
+            {
+                result.Add("other");
+            }
+            if (!updateOther.Checked & !updateWork.Checked & !updatePersonal.Checked)
+            {
+                result.Add("without type");
+            }
+            return result;
+        }
 
 
         ////////////////////
@@ -394,6 +428,15 @@ namespace NoteDemo
             insertPersonal.Checked = false;
             insertWork.Checked = false;
             insertOther.Checked = false;
+        }
+        // clear update section method //
+        private void ClearUpdate()
+        {
+            updateTitle.Text = "";
+            updateText.Text = "";
+            updatePersonal.Checked = false;
+            updateWork.Checked = false;
+            updateOther.Checked = false;
         }
 
         
